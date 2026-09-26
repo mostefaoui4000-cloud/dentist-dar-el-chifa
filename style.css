@@ -1,0 +1,1316 @@
+/* ==========================================
+   1. VARIABLES & DESIGN SYSTEM
+   ========================================== */
+:root {
+  --primary-color: #1D5299;
+  --secondary-color: #E05038;
+  --bg-color: #F4F7FA;
+  --text-color: #1A1A1A;
+  --white: #FFFFFF;
+  --font-heading: 'Poppins', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ==========================================
+   2. GLOBAL RESETS & BASE STYLES
+   ========================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--text-color);
+  background-color: var(--white);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* Global Utilities & Structural Helpers */
+.section-padding { 
+  padding: 5rem 1.25rem; 
+}
+
+.gray-bg { 
+  background-color: var(--bg-color); 
+}
+
+.section-header {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 3.5rem;
+}
+
+.section-header h2 {
+  font-family: var(--font-heading);
+  font-size: 2.25rem;
+  margin-bottom: 0.75rem;
+  color: #111111;
+}
+
+/* ==========================================
+   3. BUTTONS & INTERACTIVE ELEMENTS
+   ========================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem 1.8rem;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 1rem;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  text-decoration: none;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: var(--white);
+}
+
+.btn-primary:hover {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--secondary-color);
+  border: 2px solid var(--secondary-color);
+}
+
+.btn-secondary:hover {
+  background-color: var(--secondary-color);
+  color: var(--white);
+  transform: translateY(-3px);
+}
+
+.btn-dental {
+  background-color: var(--secondary-color);
+  color: var(--white);
+  border: none;
+}
+
+.btn-dental:hover {
+  background-color: #c83d27;
+  color: var(--white);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(224, 80, 56, 0.25);
+}
+
+/* Department Master Switcher Component */
+.master-dept-switcher {
+  display: inline-flex;
+  background: #E2E8F0;
+  padding: 4px;
+  border-radius: 30px;
+  flex-shrink: 0;
+}
+
+.dept-switch-btn {
+  border: none;
+  padding: 7px 15px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  background: transparent;
+  color: #4A5568;
+  transition: all 0.3s ease;
+}
+
+.dept-switch-btn.active[data-dept="medical"] {
+  background: var(--primary-color);
+  color: var(--white);
+}
+
+.dept-switch-btn.active[data-dept="dental"] {
+  background: var(--secondary-color);
+  color: var(--white);
+}
+
+/* Dynamic Department Visibility Rules */
+body[data-active-dept="medical"] #before-after,
+body[data-active-dept="medical"] .dental-only-link {
+  display: none !important;
+}
+
+body[data-active-dept="dental"] #before-after,
+body[data-active-dept="dental"] .dental-only-link {
+  display: block !important;
+}
+
+/* ==========================================
+   4. NAVIGATION BAR
+   ========================================== */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 96%;
+  margin: 0 auto;
+  padding: 0.75rem 1rem;
+  gap: 1rem;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  text-decoration: none;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.logo-container:hover {
+  transform: translateY(-1px);
+}
+
+.logo-img {
+  height: 48px;
+  width: auto;
+  object-fit: contain;
+}
+
+.logo-text-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  line-height: 1.1;
+}
+
+.brand-title {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  letter-spacing: -0.3px;
+}
+
+.brand-subtitle {
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--secondary-color);
+  letter-spacing: 0.8px;
+  margin-top: 2px;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  white-space: nowrap;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--text-color);
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover {
+  color: var(--primary-color);
+}
+
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.menu-toggle span {
+  width: 25px;
+  height: 3px;
+  background: var(--text-color);
+  border-radius: 2px;
+}
+
+/* ==========================================
+   5. HERO SECTION
+   ========================================== */
+.hero {
+  background: linear-gradient(135deg, #f0f4f8 0%, var(--white) 100%);
+  padding: 8rem 1.25rem 4rem;
+  overflow: hidden;
+}
+
+.hero-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: center;
+  gap: 4rem;
+}
+
+.hero-text h1 {
+  font-family: var(--font-heading);
+  font-size: 3.2rem;
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+}
+
+.hero-text p {
+  font-size: 1.15rem;
+  color: #555555;
+  margin-bottom: 2.5rem;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  margin-top: 1.75rem;
+}
+
+.hero-image img {
+  width: 100%;
+  min-height: 380px;
+  max-height: 450px;
+  object-fit: cover;
+  border-radius: 24px;
+  background-color: #E2E8F0;
+  transition: transform 0.3s ease;
+}
+
+.hero-image:hover img {
+  transform: scale(1.02);
+}
+
+.hero-dynamic-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.75rem;
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* ==========================================
+   6. ABOUT & DEPARTMENT CARDS
+   ========================================== */
+.about-container {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 4rem;
+  align-items: center;
+}
+
+.about-img img {
+  width: 100%;
+  border-radius: 20px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.05);
+}
+
+.about-info h3 {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  margin-bottom: 0.25rem;
+}
+
+.about-info h4 {
+  color: var(--secondary-color);
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+}
+
+.about-description {
+  color: #555555;
+  margin-bottom: 2rem;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.stat-card {
+  background: var(--bg-color);
+  padding: 1.5rem 1rem;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.stat-card h3 {
+  font-size: 2rem;
+  color: var(--primary-color);
+}
+
+.stat-card p {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 0.25rem;
+}
+
+/* Department Cards Grid Layout */
+.departments-grid {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 2.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.departments-grid .dept-card {
+  max-width: 500px;
+  width: 100%;
+}
+
+.dept-card {
+  background: var(--white);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.dept-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+}
+
+.dept-badge {
+  position: absolute;
+  top: 2.5rem;
+  left: 2.5rem;
+  padding: 0.35rem 0.85rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border-radius: 20px;
+  color: var(--white);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.medical-badge { background-color: var(--primary-color); }
+.dental-badge { background-color: var(--secondary-color); }
+
+.dept-lead {
+  font-weight: 600;
+  color: var(--primary-color);
+  margin-bottom: 0.75rem;
+}
+
+/* ==========================================
+   7. SERVICES & DEPARTMENTAL STYLING
+   ========================================== */
+.department-toggle {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.tab-btn {
+  padding: 0.85rem 1.75rem;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 1rem;
+  border-radius: 30px;
+  border: 2px solid var(--primary-color);
+  background: transparent;
+  color: var(--primary-color);
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.tab-btn.active, 
+.tab-btn:hover {
+  background: var(--primary-color);
+  color: var(--white);
+  box-shadow: 0 6px 15px rgba(29, 82, 153, 0.2);
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 2rem;
+}
+
+.service-card {
+  background: var(--white);
+  padding: 2.5rem 2rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  transition: var(--transition-smooth);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+
+.service-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  display: inline-block;
+}
+
+.service-card h3,
+.dept-card h3 {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  margin-bottom: 0.75rem;
+  color: var(--primary-color);
+  transition: color 0.3s ease;
+}
+
+.service-card p {
+  color: #666666;
+  font-size: 0.95rem;
+}
+
+.service-cta {
+  margin-top: 1.25rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--secondary-color);
+  transition: color 0.3s ease;
+}
+
+/* Service Card Buttons Base Style */
+.service-card button,
+.service-card a.btn-service,
+.service-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 10px 18px;
+  margin-top: 16px;
+  background-color: var(--primary-color);
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.25s ease, transform 0.15s ease, box-shadow 0.25s ease;
+  box-shadow: 0 2px 6px rgba(29, 82, 153, 0.2);
+}
+
+.service-card button:active,
+.service-card a.btn-service:active,
+.service-btn:active {
+  transform: translateY(0);
+}
+
+/* --- MEDICAL MODE (Default) HOVER RULES --- */
+body[data-active-dept="medical"] .service-card:hover,
+.service-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 15px 35px rgba(29, 82, 153, 0.15);
+  border-color: var(--primary-color);
+}
+
+body[data-active-dept="medical"] .service-card:hover h3,
+.service-card:hover h3 {
+  color: var(--primary-color);
+}
+
+body[data-active-dept="medical"] .service-card button:hover,
+body[data-active-dept="medical"] .service-card a.btn-service:hover,
+body[data-active-dept="medical"] .service-btn:hover,
+.service-card button:hover,
+.service-card a.btn-service:hover,
+.service-btn:hover {
+  background-color: #163f77;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(29, 82, 153, 0.35);
+}
+
+/* --- DENTAL MODE ACTIVE & HOVER RULES --- */
+body[data-active-dept="dental"] .service-card h3 {
+  color: var(--secondary-color);
+}
+
+body[data-active-dept="dental"] .service-card button,
+body[data-active-dept="dental"] .service-card a.btn-service,
+body[data-active-dept="dental"] .service-btn {
+  background-color: var(--secondary-color);
+  box-shadow: 0 2px 6px rgba(224, 80, 56, 0.2);
+}
+
+body[data-active-dept="dental"] .service-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 15px 35px rgba(224, 80, 56, 0.15);
+  border-color: var(--secondary-color);
+}
+
+body[data-active-dept="dental"] .service-card:hover h3 {
+  color: var(--secondary-color);
+}
+
+body[data-active-dept="dental"] .service-card button:hover,
+body[data-active-dept="dental"] .service-card a.btn-service:hover,
+body[data-active-dept="dental"] .service-btn:hover {
+  background-color: #c83d27;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(224, 80, 56, 0.35);
+}
+
+/* ==========================================
+   8. BEFORE / AFTER COMPARISON SLIDER
+   ========================================== */
+.before-after-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.ba-card {
+  background: var(--white);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.ba-info {
+  padding: 1.5rem;
+}
+
+.ba-info h3 {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+}
+
+.ba-info p {
+  color: #666666;
+  font-size: 0.95rem;
+}
+
+.ba-slider-container {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  overflow: hidden;
+  user-select: none;
+  touch-action: pan-y;
+}
+
+.ba-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.ba-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.ba-before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 2;
+}
+
+.ba-before img {
+  width: 100%;
+  max-width: none;
+}
+
+.ba-badge {
+  position: absolute;
+  bottom: 12px;
+  padding: 4px 10px;
+  background: rgba(11, 27, 61, 0.85);
+  color: var(--white);
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  z-index: 3;
+}
+
+.ba-badge.before-badge { left: 12px; }
+.ba-badge.after-badge { right: 12px; }
+
+.ba-range {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  z-index: 5;
+  cursor: ew-resize;
+}
+
+.ba-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 3px;
+  background: var(--white);
+  z-index: 4;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
+  pointer-events: none;
+}
+
+.ba-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 36px;
+  height: 36px;
+  background: var(--white);
+  color: var(--primary-color);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+  font-size: 0.9rem;
+}
+
+/* ==========================================
+   9. GALLERY, REVIEWS, CONTACT & CTA
+   ========================================== */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 2rem;
+}
+
+.gallery-item {
+  overflow: hidden;
+  border-radius: 16px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+  display: block;
+  aspect-ratio: 3 / 2;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.05);
+}
+
+.reviews-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 2rem;
+}
+
+.review-card {
+  background: var(--white);
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.01);
+}
+
+.star-rating {
+  color: #FFB100;
+  margin-bottom: 0.75rem;
+  font-size: 1.1rem;
+}
+
+.review-card p {
+  color: #444444;
+  font-style: italic;
+  margin-bottom: 1rem;
+}
+
+.review-author {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.contact-container {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 4rem;
+}
+
+.contact-info h2 {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.contact-info p {
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.contact-info a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+.hours-box {
+  margin-top: 2rem;
+  background: var(--bg-color);
+  padding: 1.5rem;
+  border-radius: 12px;
+}
+
+.hours-box h3 {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.hours-box ul {
+  list-style: none;
+}
+
+.hours-box li {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.contact-map iframe {
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+}
+
+.cta-section {
+  text-align: center;
+  background: linear-gradient(135deg, var(--primary-color) 0%, #103363 100%);
+  color: var(--white);
+}
+
+.cta-section h2 {
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+/* ==========================================
+   10. FOOTER & FLOATING COMPONENTS
+   ========================================== */
+footer {
+  background: #111111;
+  color: #888888;
+  padding: 2rem 1.25rem;
+  font-size: 0.95rem;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.socials a {
+  color: #ffffff;
+  margin-left: 1.5rem;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.socials a:hover {
+  color: var(--secondary-color);
+}
+
+/* Official Floating WhatsApp Button */
+.floating-whatsapp {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  width: 56px;
+  height: 56px;
+  background-color: #25D366; /* Official WhatsApp Brand Green */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 999;
+  text-decoration: none;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.floating-whatsapp:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22);
+}
+
+.floating-whatsapp:active {
+  transform: translateY(0);
+}
+
+.whatsapp-ico {
+  width: 32px;
+  height: 32px;
+  display: block;
+}
+
+/* Modals */
+.booking-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 1rem;
+}
+
+.modal-content {
+  background: #ffffff;
+  width: 100%;
+  max-width: 900px;
+  height: 90%;
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.close-modal {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 2rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+  z-index: 2001;
+}
+
+/* Cookie Consent Banner */
+.consent-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #111111;
+  color: #eeeeee;
+  padding: 1rem 1.5rem;
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  z-index: 3000;
+  font-size: 0.9rem;
+}
+
+.consent-banner.visible {
+  display: flex;
+}
+
+.consent-banner a {
+  color: var(--secondary-color);
+}
+
+.consent-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.consent-actions .btn {
+  padding: 0.5rem 1.2rem;
+  font-size: 0.9rem;
+}
+
+.consent-actions .btn-secondary {
+  color: #eeeeee;
+  border-color: #eeeeee;
+}
+
+.consent-actions .btn-secondary:hover {
+  background: #eeeeee;
+  color: #111111;
+}
+
+/* Keyframe Animations */
+.fade-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ==========================================
+   11. RESPONSIVE MEDIA QUERIES
+   ========================================== */
+
+/* Tablet & Smaller Screens */
+@media (max-width: 992px) {
+  html {
+    font-size: 14px;
+  }
+
+  .hero-container,
+  .about-container,
+  .contact-container {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .hero {
+    padding-top: 6rem;
+  }
+
+  .menu-toggle {
+    display: flex;
+  }
+
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: #ffffff;
+    flex-direction: column;
+    padding: 2rem;
+    gap: 1.5rem;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+    display: none;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .gallery-item img {
+    height: 300px;
+  }
+}
+
+/* Mobile Devices */
+@media (max-width: 768px) {
+  html, body {
+    overflow-x: hidden;
+  }
+
+  /* 1. Header & Navigation */
+  .nav-container {
+    padding: 0.5rem 1rem;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .logo-container {
+    font-size: 1.15rem;
+    gap: 0.5rem;
+  }
+
+  .logo-img {
+    height: 55px;
+    max-width: 80px;
+  }
+
+  .brand-title {
+    font-size: 1.1rem;
+  }
+
+  .brand-subtitle {
+    font-size: 0.55rem;
+  }
+
+  .master-dept-switcher {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 0.25rem;
+    padding: 2px;
+  }
+
+  .dept-switch-btn {
+    flex: 1;
+    text-align: center;
+    padding: 8px 10px;
+    font-size: 0.8rem;
+  }
+
+  .nav-links {
+    position: fixed;
+    top: 60px;
+    left: -100%;
+    width: 100%;
+    height: calc(100vh - 60px);
+    background: #ffffff;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 2rem 1.5rem;
+    gap: 1.5rem;
+    transition: left 0.3s ease;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  }
+
+  .nav-links.active {
+    left: 0;
+  }
+
+  /* 2. Hero Section */
+  .hero {
+    padding-top: 1.5rem;
+    padding-bottom: 2rem;
+  }
+
+  .hero-container {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 1.5rem;
+    text-align: center;
+  }
+
+  .hero-text h1 {
+    font-size: 1.65rem;
+    line-height: 1.3;
+  }
+
+  .hero-text p {
+    font-size: 0.95rem;
+    margin-top: 0.75rem;
+  }
+
+  .hero-actions {
+    justify-content: center;
+    width: 100%;
+    margin-top: 1.25rem;
+  }
+
+  .hero-dynamic-btn,
+  .hero-actions .btn {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+    padding: 0.85rem 1.25rem;
+    font-size: 0.95rem;
+  }
+
+  .hero-image img {
+    min-height: 220px;
+    max-height: 300px;
+    border-radius: 14px;
+  }
+
+  /* 3. About & Department Section */
+  .departments-grid {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .dept-card {
+    width: 100%;
+    max-width: 100%;
+    padding: 1.25rem;
+  }
+
+  .dept-card button {
+    width: 100%;
+  }
+
+  /* 4. Services Grid & Sliders */
+  .department-toggle {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+  }
+
+  .department-toggle .tab-btn {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 0.85rem;
+    text-align: center;
+  }
+
+  .services-grid,
+  .gallery-grid,
+  .before-after-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .ba-slider-container {
+    height: 220px;
+  }
+
+  /* 5. CTA & Floating Elements */
+  .floating-whatsapp {
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+  }
+
+  .cta-section .hero-actions {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .cta-section .btn {
+    width: 100%;
+  }
+
+/* High-Visibility Hero Department Switcher Bar */
+.hero-dept-selector {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  max-width: 600px;
+  margin: 0 auto 1.5rem auto;
+  padding: 6px;
+  background: #ffffff;
+  border: 2px solid var(--primary-color);
+  border-radius: 50px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+  transition: border-color 0.3s ease;
+}
+
+.hero-dept-selector .dept-switch-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border-radius: 40px;
+  border: none;
+  background: transparent;
+  color: #4A5568;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-dept-selector .btn-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.1;
+}
+
+.hero-dept-selector .btn-text small {
+  font-size: 0.7rem;
+  font-weight: 400;
+  opacity: 0.8;
+}
+
+/* Active State Styles */
+.hero-dept-selector .dept-switch-btn.active[data-dept="medical"] {
+  background: var(--primary-color); /* #1D5299 */
+  color: #ffffff;
+  box-shadow: 0 4px 15px rgba(29, 82, 153, 0.35);
+}
+
+.hero-dept-selector .dept-switch-btn.active[data-dept="dental"] {
+  background: var(--secondary-color); /* #E05038 */
+  color: #ffffff;
+  box-shadow: 0 4px 15px rgba(224, 80, 56, 0.35);
+}
+
+/* Dynamic Department Switcher Colors */
+body[data-active-dept="dental"] .hero-dept-selector {
+  border-color: var(--secondary-color);
+}
+
+/* Mobile Friendly Overrides */
+@media (max-width: 768px) {
+  .hero-dept-selector {
+    width: 92%;
+    margin-top: 1rem;
+    padding: 4px;
+  }
+
+  .hero-dept-selector .dept-switch-btn {
+    padding: 10px 12px;
+    font-size: 0.85rem;
+  }
+  
+  .hero-dept-selector .btn-text small {
+    display: none; /* Hide small subtext on tiny screens for clarity */
+  }
+}
+
+}
